@@ -159,7 +159,15 @@ export const NAV: NavItem[] = [
     title: 'E04 — Desarrollo',
     slug: 'E04',
     file: 'E04/00_INDEX.md',
-    status: '⏳',
+    status: '🔄',
+    children: [
+      {
+        title: 'Índice y Estado del Código',
+        slug: 'E04/index',
+        file: 'E04/00_INDEX.md',
+        status: '🔄',
+      },
+    ],
   },
 ]
 
