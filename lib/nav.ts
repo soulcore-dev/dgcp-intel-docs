@@ -167,6 +167,24 @@ export const NAV: NavItem[] = [
         file: 'E04/00_INDEX.md',
         status: '🔄',
       },
+      {
+        title: 'Browser Service — Playwright',
+        slug: 'E04/browser-service',
+        file: 'E04/01_BROWSER_SERVICE.md',
+        status: '🔄',
+      },
+      {
+        title: 'Web Dashboard — Next.js 14',
+        slug: 'E04/web-dashboard',
+        file: 'E04/02_WEB_DASHBOARD.md',
+        status: '🔄',
+      },
+      {
+        title: 'Submit Processor — Worker→Browser',
+        slug: 'E04/submit-processor',
+        file: 'E04/03_SUBMIT_PROCESSOR.md',
+        status: '🔄',
+      },
     ],
   },
 ]
