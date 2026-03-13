@@ -109,6 +109,12 @@ export const NAV: NavItem[] = [
         file: 'E02/06_CHK_02_VERIFICADO.md',
         status: '✅',
       },
+      {
+        title: 'GUARDIAN — Asistente IA',
+        slug: 'E02/asistente-ia',
+        file: 'E02/07_ASISTENTE_IA.md',
+        status: '✅',
+      },
     ],
   },
   {
