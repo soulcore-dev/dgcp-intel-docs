@@ -185,6 +185,12 @@ export const NAV: NavItem[] = [
         file: 'E04/03_SUBMIT_PROCESSOR.md',
         status: '🔄',
       },
+      {
+        title: 'CHK-04 — Gate E04 61/63',
+        slug: 'E04/chk04',
+        file: 'E04/04_CHK_04.md',
+        status: '🔄',
+      },
     ],
   },
 ]
