@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-slate-900 antialiased;
+    background-color: #f8f9fc;
+    background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  ::selection {
+    background-color: #cffafe;
+    color: #0e7490;
+  }
+}
+
+/* ── Scrollbars ──────────────────────────────────── */
+::-webkit-scrollbar         { width: 6px; height: 6px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: #cbd5e1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Sidebar scrollbar — even thinner */
+.sidebar-scroll::-webkit-scrollbar { width: 3px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: #334155; }
+
+/* ── Code blocks ─────────────────────────────────── */
+.prose pre {
+  position: relative;
+}
+
+.prose pre code {
+  font-size: 0.8125rem !important;
+  line-height: 1.7 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  color: inherit !important;
+}
+
+/* ── Prose tables fix ────────────────────────────── */
+.prose table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* ── Smooth link transitions ─────────────────────── */
+a { transition: color 150ms ease, opacity 150ms ease; }
+
+/* ── Mermaid SVG override ────────────────────────── */
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
