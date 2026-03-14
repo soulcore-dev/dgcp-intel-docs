@@ -221,6 +221,12 @@ export const NAV: NavItem[] = [
         file: 'E04/FILTRO_SECTOR_OBJETO_SOCIAL.md',
         status: '🔄',
       },
+      {
+        title: 'Motor de Búsqueda Oportunidades',
+        slug: 'E04/motor-busqueda',
+        file: 'E04/MOTOR_BUSQUEDA_OPORTUNIDADES.md',
+        status: '🔄',
+      },
     ],
   },
   {
