@@ -1,146 +1,119 @@
 # E04 — Desarrollo: Índice y Estado
 
-> DGCP INTEL | Etapa 4 — Desarrollo | 2026-03-13
+> DGCP INTEL | Etapa 4 — Desarrollo | 2026-03-14
+> **Fase actual**: F1 Detección (~85% completado)
 
 ---
 
-## Estado General
+## Contexto: 4 Fases del Producto
+
+Ver [ROADMAP_FASES.md](../ROADMAP_FASES.md) para visión completa.
 
 ```mermaid
 graph LR
-    subgraph DONE["✅ Completado"]
-        S["packages/shared\ntypes + constants\n+ schemas + utils"]
-        SC["packages/scoring\nengine 6 componentes\nwin probability"]
-        OC["packages/ocds-client\nHTTP client + retry\nOCDS→Licitacion mapper"]
-        GA["GUARDIAN\nroutes/asistente.ts\nservices/asistente.ts\nGuardianChat.tsx"]
-    end
+    F1["🔍 F1: DETECCIÓN\n~85% ✅"]
+    F2["📋 F2: INTELIGENCIA\n⏳"]
+    F3["📄 F3: PREPARACIÓN\n⏳"]
+    F4["🚀 F4: SUBMISSION\n⏳"]
 
-    subgraph WIP["🔄 En progreso"]
-        DB["packages/db\nSupabase client"]
-        API["apps/api\nServidor Fastify\nAuth + Routes"]
-    end
+    F1 --> F2 --> F3 --> F4
 
-    subgraph PENDING["⏳ Pendiente"]
-        W["apps/worker\nBullMQ 5 queues"]
-        B["apps/browser\nPlaywright service"]
-        WEB["apps/web\nDashboard Next.js"]
-    end
+    style F1 fill:#22c55e,color:#fff
+    style F2 fill:#94a3b8,color:#fff
+    style F3 fill:#94a3b8,color:#fff
+    style F4 fill:#94a3b8,color:#fff
+```
 
-    S --> DB
-    DB --> API
-    API --> W
-    W --> B
-    API --> WEB
+**F1 = MVP** — El usuario recibe alertas y ve oportunidades. Todo lo demás es expansión.
+
+---
+
+## F1 Detección — Estado de Archivos
+
+### ✅ Completado (en GitHub: soulcore-dev/dgcp-intel)
+
+| Módulo | Archivos | Notas |
+|--------|----------|-------|
+| `packages/shared` | types.ts, constants.ts, schemas.ts, utils.ts | 9 interfaces, Zod, AppError |
+| `packages/scoring` | engine.ts, index.ts | 6 componentes, win probability |
+| `packages/ocds-client` | client.ts, mapper.ts, types.ts | HTTP retry, OCDS→Licitacion |
+| `packages/db` | client.ts, queries/licitaciones.ts, queries/oportunidades.ts | Supabase singleton, upsert, pipeline |
+| `apps/api` | index.ts, middleware/auth.ts | Fastify + JWT + CORS + rate-limit |
+| `apps/api/routes` | auth.ts, perfil.ts, oportunidades.ts, asistente.ts | CRUD completo |
+| `apps/api/services` | asistente.ts | GUARDIAN: system prompt + SSE |
+| `apps/worker` | index.ts, processors/scan.ts, score.ts, alert.ts, propose.ts | 5 queues BullMQ |
+| `apps/web` | layout.tsx, login/page.tsx, register/page.tsx, GuardianChat.tsx | Auth + provider + proxy SSE |
+| `infra/supabase` | 001-005 migrations | Schema + RLS + functions + triggers + storage |
+| Root | tsconfig.base.json, turbo.json, pnpm-workspace.yaml, .env.example | Monorepo config |
+
+### 🔴 Falta para cerrar F1
+
+| # | Tarea | Tipo | Prioridad |
+|---|-------|------|-----------|
+| 1 | **Dashboard — Lista de oportunidades** | Web | P1 |
+|   | `apps/web/src/app/(dashboard)/oportunidades/page.tsx` | | |
+|   | Tabla con: título, entidad, monto, score, días restantes, estado | | |
+|   | Filtros: score mínimo, modalidad, monto, estado | | |
+| 2 | **Dashboard — Detalle de oportunidad** | Web | P1 |
+|   | `apps/web/src/app/(dashboard)/oportunidades/[id]/page.tsx` | | |
+|   | Score breakdown (6 componentes visual), datos licitación, acciones | | |
+| 3 | **Dashboard — Home/Pipeline** | Web | P2 |
+|   | `apps/web/src/app/(dashboard)/page.tsx` | | |
+|   | Pipeline funnel: detectadas → scored → alertadas → propuestas | | |
+|   | KPIs: total oportunidades, score promedio, win rate | | |
+| 4 | **Dashboard — Analytics** | Web | P3 |
+|   | `apps/web/src/app/(dashboard)/analytics/page.tsx` | | |
+|   | Recharts: oportunidades/día, distribución scores, top entidades | | |
+| 5 | **Dashboard — Perfil empresa** | Web | P2 |
+|   | `apps/web/src/app/(dashboard)/perfil/page.tsx` | | |
+|   | UNSPSC codes, datos empresa, credenciales RPE (masked) | | |
+| 6 | **Dashboard — Layout + Sidebar** | Web | P1 |
+|   | `apps/web/src/app/(dashboard)/layout.tsx` | | |
+|   | Sidebar: Pipeline, Oportunidades, Analytics, Perfil, GUARDIAN | | |
+| 7 | **Deploy** | Infra | P1 |
+|   | Supabase proyecto → Railway (API + Worker + Redis) → Vercel (Web) | | |
+| 8 | **Primer scan real** | QA | P1 |
+|   | Ejecutar worker contra api.dgcp.gob.do, verificar mapper con datos reales | | |
+
+### Documentación E04
+
+| Doc | Contenido | Estado |
+|-----|-----------|--------|
+| [ROADMAP_FASES.md](../ROADMAP_FASES.md) | Visión 4 fases completa | ✅ |
+| [01_BROWSER_SERVICE.md](01_BROWSER_SERVICE.md) | Apps/browser Playwright (F4) | ✅ |
+| [02_WEB_DASHBOARD.md](02_WEB_DASHBOARD.md) | Apps/web Next.js (F1) | ✅ |
+| [03_SUBMIT_PROCESSOR.md](03_SUBMIT_PROCESSOR.md) | Worker submit queue (F4) | ✅ |
+| F2_INTELIGENCIA_SPEC.md | Análisis + red flags + BD precios | ⏳ |
+| F3_PREPARACION_SPEC.md | Sobre A/B + APU + docs | ⏳ |
+| F4_SUBMISSION_SPEC.md | Portal automation completa | ⏳ |
+
+---
+
+## Orden de implementación para ATLAS
+
+### Sprint F1-final (cerrar detección)
+
+```
+1. apps/web — Dashboard layout + sidebar + oportunidades list
+2. apps/web — Detalle oportunidad + score breakdown visual
+3. apps/web — Home pipeline + analytics básico
+4. apps/web — Perfil empresa
+5. Deploy: Supabase + Railway + Vercel
+6. QA: Primer scan real contra API DGCP
+```
+
+### Sprint F2 (siguiente fase)
+
+```
+1. Importar BD precios Hefesto → Supabase ref tables
+2. Red flags detection en scoring engine
+3. Verificación UNSPSC automática
+4. 5 escenarios pricing
+5. Índices financieros auto-cálculo
+6. UI: badges de red flags + escenarios en detalle
 ```
 
 ---
 
-## Mapa de Archivos — Completo
-
-```
-dgcp-intel/
-├── packages/
-│   ├── shared/src/
-│   │   ├── types.ts          ✅ 9 interfaces completas
-│   │   ├── constants.ts      ✅ umbrales, planes, queues, UNSPSC
-│   │   ├── schemas.ts        ✅ Zod schemas con validación
-│   │   └── utils.ts          ✅ scoring utils, format, AppError
-│   │
-│   ├── scoring/src/
-│   │   └── engine.ts         ✅ 6 componentes implementados
-│   │
-│   ├── ocds-client/src/
-│   │   ├── client.ts         ✅ HTTP + retry + paginación
-│   │   ├── mapper.ts         ✅ OCDS Release → Licitacion
-│   │   └── types.ts          ✅ Zod schemas OCDS
-│   │
-│   └── db/src/
-│       ├── client.ts         🔄 Supabase client singleton
-│       ├── queries/
-│       │   ├── licitaciones.ts  🔄 CRUD + búsquedas
-│       │   ├── oportunidades.ts 🔄 pipeline queries
-│       │   ├── propuestas.ts    ⏳ propuestas queries
-│       │   └── tenants.ts       ⏳ tenant + perfil queries
-│       └── index.ts          🔄 exports
-│
-├── apps/
-│   ├── api/src/
-│   │   ├── index.ts          🔄 Fastify server principal
-│   │   ├── middleware/
-│   │   │   ├── auth.ts       🔄 JWT + tenant context
-│   │   │   └── rateLimit.ts  ⏳ rate limit por plan
-│   │   ├── routes/
-│   │   │   ├── asistente.ts  ✅ GUARDIAN streaming
-│   │   │   ├── oportunidades.ts ⏳ GET/POST oportunidades
-│   │   │   ├── perfil.ts     ⏳ GET/PUT empresa perfil
-│   │   │   ├── propuestas.ts ⏳ POST generar propuesta
-│   │   │   ├── pipeline.ts   ⏳ GET pipeline stats
-│   │   │   └── auth.ts       ⏳ login/register
-│   │   └── services/
-│   │       ├── asistente.ts  ✅ system prompt + context
-│   │       ├── proposalGen.ts ⏳ Claude 5 documentos
-│   │       └── telegram.ts   ⏳ enviar alertas/mensajes
-│   │
-│   ├── worker/src/
-│   │   ├── index.ts          ⏳ BullMQ workers init
-│   │   └── processors/
-│   │       ├── scan.ts       🔄 OCDS scan + upsert
-│   │       ├── score.ts      ⏳ score batch por tenant
-│   │       ├── alert.ts      ⏳ Telegram alert sender
-│   │       ├── propose.ts    ⏳ Claude doc generation
-│   │       └── submit.ts     ⏳ HTTP → browser service
-│   │
-│   ├── browser/src/
-│   │   ├── index.ts          ⏳ Fastify HTTP server
-│   │   └── service/
-│   │       ├── session.ts    ⏳ storageState RPE login
-│   │       ├── form.ts       ⏳ fill + submit DGCP form
-│   │       └── screenshot.ts ⏳ captura pre-submit
-│   │
-│   └── web/src/
-│       ├── app/              ⏳ Next.js 15 App Router
-│       ├── components/
-│       │   ├── guardian/
-│       │   │   └── GuardianChat.tsx ✅ widget chat
-│       │   ├── pipeline/     ⏳ Kanban board
-│       │   ├── oportunidades/ ⏳ lista + detalle
-│       │   └── analytics/    ⏳ charts Recharts
-│       └── lib/              ⏳ supabase client, hooks
-│
-└── infra/
-    └── supabase/migrations/  ⏳ copiar desde E02
-```
-
----
-
-## Prioridad de Implementación
-
-| Prioridad | Módulo | Por qué es crítico |
-|-----------|--------|-------------------|
-| 🔴 P1 | `packages/db` | Todo depende del cliente Supabase |
-| 🔴 P1 | `apps/api/index.ts` + auth | Sin servidor no hay nada |
-| 🔴 P1 | `apps/worker/processors/scan.ts` | Core business: detectar licitaciones |
-| 🟠 P2 | `apps/worker/processors/score.ts` | Sin score no hay alertas |
-| 🟠 P2 | `apps/worker/processors/alert.ts` | Sin alertas el usuario no sabe nada |
-| 🟡 P3 | `apps/api/routes/oportunidades.ts` | API que consume el dashboard |
-| 🟡 P3 | `apps/browser` | Solo necesario para auto-submit |
-| 🟢 P4 | `apps/web` completo | Frontend, desarrollar después de API |
-
----
-
-## Lo que se DOCUMENTA (no se codifica ahora)
-
-Los siguientes módulos son complejos pero repetitivos — se documentan con
-el código de referencia y se implementan en sprint 2:
-
-| Módulo | Documento de referencia |
-|--------|------------------------|
-| `apps/api/routes/oportunidades.ts` | [01_API_REST_SPEC.md](../E02/01_API_REST_SPEC.md) |
-| `apps/api/routes/propuestas.ts` | [01_API_REST_SPEC.md](../E02/01_API_REST_SPEC.md) |
-| `apps/browser/service/form.ts` | [05_SEGURIDAD_RPE.md](../E02/05_SEGURIDAD_RPE.md) |
-| `apps/web` completo | [04_DASHBOARD_WIREFRAMES.md](../E02/04_DASHBOARD_WIREFRAMES.md) |
-| `apps/worker/processors/propose.ts` | [05_FLUJOS_PRINCIPALES.md](../E01/05_FLUJOS_PRINCIPALES.md) |
-
----
-
-*JANUS — 2026-03-13*
+*JANUS — 2026-03-14*
+*Auditoría cruzada: HEFESTO_CORE (experiencia real) + DGCP_INTEL (codebase actual)*

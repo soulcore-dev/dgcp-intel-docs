@@ -186,12 +186,30 @@ export const NAV: NavItem[] = [
         status: '🔄',
       },
       {
-        title: 'CHK-04 — Gate E04 61/63',
-        slug: 'E04/chk04',
-        file: 'E04/04_CHK_04.md',
-        status: '🔄',
+        title: 'F2 — Inteligencia (Red Flags + BD Precios)',
+        slug: 'E04/f2-inteligencia',
+        file: 'E04/F2_INTELIGENCIA_SPEC.md',
+        status: '⏳',
+      },
+      {
+        title: 'F3 — Preparación (Sobre A/B + APU)',
+        slug: 'E04/f3-preparacion',
+        file: 'E04/F3_PREPARACION_SPEC.md',
+        status: '⏳',
+      },
+      {
+        title: 'F4 — Submission (Portal SECP)',
+        slug: 'E04/f4-submission',
+        file: 'E04/F4_SUBMISSION_SPEC.md',
+        status: '⏳',
       },
     ],
+  },
+  {
+    title: 'Roadmap de Fases',
+    slug: 'roadmap',
+    file: 'ROADMAP_FASES.md',
+    status: '✅',
   },
 ]
 
