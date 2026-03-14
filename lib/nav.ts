@@ -233,6 +233,12 @@ export const NAV: NavItem[] = [
         file: 'E04/SCORE_CONFIGURABLE_USUARIO.md',
         status: '🔄',
       },
+      {
+        title: 'Modos Vista: Genérico vs Mi Empresa',
+        slug: 'E04/modos-vista',
+        file: 'E04/MODOS_VISTA_GENERICO_EMPRESA.md',
+        status: '🔄',
+      },
     ],
   },
   {
