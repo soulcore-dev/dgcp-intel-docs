@@ -204,10 +204,16 @@ export const NAV: NavItem[] = [
         status: '⏳',
       },
       {
-        title: 'F4 — Submission (Portal SECP)',
+        title: 'F4 — Entrega y Seguimiento',
         slug: 'E04/f4-submission',
         file: 'E04/F4_SUBMISSION_SPEC.md',
         status: '⏳',
+      },
+      {
+        title: 'Correcciones Hefesto (7 Gaps)',
+        slug: 'E04/correcciones-hefesto',
+        file: 'E04/CORRECCIONES_HEFESTO.md',
+        status: '✅',
       },
     ],
   },
