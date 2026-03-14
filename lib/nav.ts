@@ -239,6 +239,12 @@ export const NAV: NavItem[] = [
         file: 'E04/MODOS_VISTA_GENERICO_EMPRESA.md',
         status: '🔄',
       },
+      {
+        title: '🔴 Diagnóstico: 8 Bugs Pipeline Scan',
+        slug: 'E04/diagnostico-bugs',
+        file: 'E04/DIAGNOSTICO_BUGS_PIPELINE.md',
+        status: '🔄',
+      },
     ],
   },
   {
