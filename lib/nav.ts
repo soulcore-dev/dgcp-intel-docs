@@ -229,6 +229,62 @@ export const NAV: NavItem[] = [
     file: 'PROCESO_REAL_LICITACION.md',
     status: '✅',
   },
+  {
+    title: 'HEFESTO — Conocimiento Real',
+    slug: 'HEFESTO',
+    file: 'HEFESTO/01_CICLO_COMPLETO_REAL.md',
+    status: '✅',
+    children: [
+      {
+        title: 'Ciclo Completo Real (Publicación→Liquidación)',
+        slug: 'HEFESTO/ciclo-completo',
+        file: 'HEFESTO/01_CICLO_COMPLETO_REAL.md',
+        status: '✅',
+      },
+      {
+        title: 'Errores Fatales que Descalifican',
+        slug: 'HEFESTO/errores-fatales',
+        file: 'HEFESTO/02_ERRORES_FATALES_DESCALIFICACION.md',
+        status: '✅',
+      },
+      {
+        title: 'Sectores y Verticales (No Solo Construcción)',
+        slug: 'HEFESTO/sectores-verticales',
+        file: 'HEFESTO/03_SECTORES_Y_VERTICALES.md',
+        status: '✅',
+      },
+      {
+        title: 'Formularios DGCP — Campo por Campo',
+        slug: 'HEFESTO/formularios-campo',
+        file: 'HEFESTO/04_FORMULARIOS_DGCP_CAMPO_POR_CAMPO.md',
+        status: '✅',
+      },
+      {
+        title: 'Actos Administrativos (Lado Entidad)',
+        slug: 'HEFESTO/actos-administrativos',
+        file: 'HEFESTO/05_ACTOS_ADMINISTRATIVOS_ENTIDAD.md',
+        status: '✅',
+      },
+      {
+        title: 'BD Precios Multisectorial RD',
+        slug: 'HEFESTO/bd-precios',
+        file: 'HEFESTO/06_BD_PRECIOS_MULTISECTORIAL.md',
+        status: '✅',
+      },
+      {
+        title: 'Conocimiento que Nadie Más Tiene',
+        slug: 'HEFESTO/ventaja-competitiva',
+        file: 'HEFESTO/07_CONOCIMIENTO_QUE_NADIE_TIENE.md',
+        status: '✅',
+      },
+      {
+        title: 'Schema Histórico Completo',
+        slug: 'HEFESTO/schema-historico',
+        file: 'HEFESTO/08_SCHEMA_HISTORICO_COMPLETO.md',
+        status: '✅',
+      },
+    ],
+  },
 ]
 
 export function flattenNav(items: NavItem[]): NavItem[] {
