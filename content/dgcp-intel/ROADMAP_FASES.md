@@ -13,15 +13,25 @@ DGCP INTEL no es solo un detector de licitaciones — es un **pipeline completo 
 graph LR
     F1["🔍 F1: DETECCIÓN\nScan + Score + Alert"]
     F2["📋 F2: INTELIGENCIA\nAnálisis + Red Flags\n+ BD Precios"]
-    F3["📄 F3: PREPARACIÓN\nSobre A + Sobre B\n+ APU + Docs"]
+    F3A["📄 F3A: PREPARACIÓN\nDescargar + Estudiar\n+ Llenar docs"]
+    F3B["🔍 F3B: REVISIÓN\nValidar + Corregir\n+ Aprobar"]
     F4["🚀 F4: SUBMISSION\nMostrar Interés\n+ Upload Portal"]
 
-    F1 --> F2 --> F3 --> F4
+    F1 --> F2 --> F3A --> F3B --> F4
+    F3B -->|"errores"| F3A
 
     style F1 fill:#22c55e,color:#fff
     style F2 fill:#f59e0b,color:#fff
-    style F3 fill:#ef4444,color:#fff
+    style F3A fill:#3b82f6,color:#fff
+    style F3B fill:#ef4444,color:#fff
     style F4 fill:#8b5cf6,color:#fff
+```
+
+### El ciclo real (no es lineal)
+
+```
+Descargar → Estudiar → Llenar → REVISAR → Corregir → REVISAR → Aprobar → Lanzar
+                                   ↑___________↓  (loop hasta 0 errores)
 ```
 
 ---

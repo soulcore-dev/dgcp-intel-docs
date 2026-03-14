@@ -192,9 +192,15 @@ export const NAV: NavItem[] = [
         status: '⏳',
       },
       {
-        title: 'F3 — Preparación (Sobre A/B + APU)',
+        title: 'F3A — Preparación (Sobre A/B + APU)',
         slug: 'E04/f3-preparacion',
         file: 'E04/F3_PREPARACION_SPEC.md',
+        status: '⏳',
+      },
+      {
+        title: 'F3B — Revisión y Aprobación',
+        slug: 'E04/f3b-revision',
+        file: 'E04/F3B_REVISION_APROBACION_SPEC.md',
         status: '⏳',
       },
       {
