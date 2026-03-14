@@ -156,53 +156,68 @@ graph TD
 
 ---
 
-## F4: SUBMISSION — "Envía mi oferta"
+## F4: ENTREGA Y SEGUIMIENTO — "Envía y rastrea"
 
-**Estado**: ⏳ No iniciado (browser service diseñado, no implementado)
+**Estado**: ⏳ No iniciado
 
-### Scope
+### Realidad: El portal lo maneja EL HUMANO
 
-| Componente | Estado | Descripción |
-|-----------|--------|-------------|
-| "Mostrar Interés" automático | ⏳ | Playwright navega a SECP y clickea el botón. SIN ESTO NO SE PUEDE OFERTAR |
-| Descarga de pliegos | ⏳ | Automatizar descarga de documentos del proceso |
-| Upload de documentos | ⏳ | Subir Sobre A y Sobre B al portal SECP |
-| Screenshot pre-submit | ✅ diseñado | Captura de pantalla antes de enviar como evidencia |
-| Notificación post-submit | ⏳ | Telegram + email confirmando envío exitoso |
-| Tracking de estado | ⏳ | Monitorear: apertura técnica → subsanación → apertura económica → adjudicación |
-| Seguimiento post-adjudicación | ⏳ | Si ganamos: contrato, garantía fiel cumplimiento, anticipo |
+Después de validar con Hefesto, el upload al portal SECP es **100% humano**.
+No se automatiza porque:
+1. Responsabilidad legal del representante
+2. Portal inestable (UI cambia frecuentemente)
+3. Solo toma 10 minutos
+4. Riesgo de error automatizado > beneficio
 
-### Flujo Portal SECP
+### Scope — Lo que SÍ hace el sistema
+
+| Componente | Actor | Descripción |
+|-----------|-------|-------------|
+| Recordar "Mostrar Interés" | IA → Humano | Alerta Telegram para que el humano lo haga en el portal |
+| Organizar docs para upload | IA | ZIP con Sobre A y Sobre B listos, instrucciones claras |
+| Confirmar envío | Humano → IA | Usuario marca "Ya envié" en el sistema |
+| Tracking post-envío | IA | Monitorear: apertura técnica → subsanación → adjudicación |
+| Alertas de subsanación | IA | Si piden correcciones, alertar con plazo |
+| Post-adjudicación | IA | Si gana: pasos para contrato + garantías |
+
+### Flujo real
 
 ```mermaid
 sequenceDiagram
+    participant IA as DGCP INTEL
     participant U as Usuario
-    participant D as DGCP INTEL
-    participant B as Browser Service
     participant P as Portal SECP
 
-    U->>D: "APLICAR a esta licitación"
-    D->>B: Iniciar sesión RPE
-    B->>P: Login con credenciales cifradas
-    P-->>B: Sesión activa
+    IA->>U: "Docs listos — descarga ZIP"
+    IA->>U: "⚠️ Recuerda: Mostrar Interés en portal"
+    U->>P: Login RPE
+    U->>P: Mostrar Interés
+    U->>P: Subir Sobre A + Sobre B
+    U->>P: Verificar montos, confirmar envío
+    U->>U: Capturar comprobante
+    U->>IA: "Ya envié la oferta"
+    IA->>IA: Iniciar tracking post-envío
+    IA->>U: Alertas de estado hasta adjudicación
+```
 
-    Note over B,P: PASO CRÍTICO
-    B->>P: Click "Mostrar Interés"
-    P-->>B: Interés registrado
+### Post-proceso: 8 pasos hasta contrato
 
-    B->>P: Navegar a "Presentar Oferta"
-    B->>P: Upload Sobre A (ZIP)
-    B->>P: Upload Sobre B (ZIP)
-    B->>B: Screenshot evidencia
-    B->>P: Confirmar envío
+Ver detalle completo en [PROCESO_REAL_LICITACION.md](PROCESO_REAL_LICITACION.md)
 
-    B-->>D: Resultado + screenshot
-    D-->>U: ✅ Telegram: "Oferta enviada"
+```
+1. Apertura Sobre A (acto notarial)
+2. Evaluación técnica (peritos: Cumple/No Cumple)
+3. Habilitación (comité habilita Sobre B)
+4. Apertura Sobre B (evaluación económica)
+5. Informe de evaluación (peritos recomiendan)
+6. Adjudicación (acto formal)
+7. Período de recurso (10 días hábiles)
+8. Contrato (SNCC.C.026)
 ```
 
 ### Entregable F4
-> El usuario aprueba la oferta generada en F3 → el sistema sube todo al portal SECP.
-> Screenshot de evidencia + confirmación por Telegram.
+> El sistema organiza los docs y guía al humano en el upload.
+> Después de enviar, rastrea automáticamente hasta la adjudicación.
 
 ---
 
@@ -212,12 +227,23 @@ sequenceDiagram
 |------|----------|-------------|----------------------|
 | **F1: Detección** | 2 semanas | — | "Sé qué licitaciones me convienen" |
 | **F2: Inteligencia** | 3 semanas | F1 deploy | "Sé si vale la pena aplicar" |
-| **F3: Preparación** | 4 semanas | F2 + BD Hefesto | "Tengo mis documentos listos" |
-| **F4: Submission** | 3 semanas | F3 + Playwright | "Apliqué sin tocar el portal" |
+| **F3: Preparación + Revisión** | 4 semanas | F2 + BD Hefesto | "Tengo mis documentos listos y verificados" |
+| **F4: Entrega + Seguimiento** | 2 semanas | F3 | "El sistema me guía y rastrea todo" |
 
 **MVP = F1** — El usuario ya recibe valor con solo detectar y scorear.
 **Killer feature = F2 + F3** — Donde Hefesto aporta conocimiento que nadie más tiene.
-**Full automation = F4** — Diferenciador competitivo total.
+**Diferenciador = F4 tracking** — Nadie más rastrea post-envío automáticamente.
+
+### Distribución de trabajo: 70% IA / 30% Humano
+
+| Lo que hace la IA (70%) | Lo que hace el humano (30%) |
+|--------------------------|----------------------------|
+| Scan + Score + Alertas | Decidir qué proceso abordar |
+| Análisis rentabilidad | Mostrar Interés en portal |
+| Generar 4 documentos | Obtener certificaciones |
+| Verificar coherencia | Decidir precio final |
+| Organizar y empaquetar | Subir docs al portal |
+| Tracking post-envío | Confirmar envío |
 
 ---
 

@@ -217,6 +217,12 @@ export const NAV: NavItem[] = [
     file: 'ROADMAP_FASES.md',
     status: '✅',
   },
+  {
+    title: 'Proceso REAL de Licitación',
+    slug: 'proceso-real',
+    file: 'PROCESO_REAL_LICITACION.md',
+    status: '✅',
+  },
 ]
 
 export function flattenNav(items: NavItem[]): NavItem[] {
