@@ -215,6 +215,12 @@ export const NAV: NavItem[] = [
         file: 'E04/CORRECCIONES_HEFESTO.md',
         status: '✅',
       },
+      {
+        title: 'Filtro Sector + Objeto Social',
+        slug: 'E04/filtro-sector',
+        file: 'E04/FILTRO_SECTOR_OBJETO_SOCIAL.md',
+        status: '🔄',
+      },
     ],
   },
   {
