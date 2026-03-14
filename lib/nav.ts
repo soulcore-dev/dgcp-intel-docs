@@ -227,6 +227,12 @@ export const NAV: NavItem[] = [
         file: 'E04/MOTOR_BUSQUEDA_OPORTUNIDADES.md',
         status: '🔄',
       },
+      {
+        title: 'Score Configurable por Usuario',
+        slug: 'E04/score-configurable',
+        file: 'E04/SCORE_CONFIGURABLE_USUARIO.md',
+        status: '🔄',
+      },
     ],
   },
   {
